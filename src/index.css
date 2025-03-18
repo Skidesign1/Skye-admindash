@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.login-page{
+    filter: none !important;
+    backdrop-filter: none !important;
+    opacity: 1 !important;
+    background: black !important;
+    background-color: black;
+    box-shadow: none !important;
+    z-index: 9999 !important;
+}
+.tw-backdrop-blur{
+    backdrop-filter: none !important;
+}
+@media(max-width: 640px){
+    .login-container{
+        padding: 20px;
+    }
+}

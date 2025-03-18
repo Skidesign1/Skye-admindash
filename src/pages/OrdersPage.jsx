@@ -37,10 +37,10 @@ const OrdersPage = () => {
 					<StatCard name='Total Revenue' icon={DollarSign} value={orderStats.totalRevenue} color='#EF4444' />
 				</motion.div>
 
-				<div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8'>
+				{/*<div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8'>
 					<DailyOrders />
 					<OrderDistribution />
-				</div>
+				</div>*/}
 
 				<OrdersTable />
 			</main>

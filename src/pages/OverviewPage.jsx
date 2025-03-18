@@ -1,4 +1,4 @@
-import { BarChart2, ShoppingBag, Users, Zap } from "lucide-react";
+import { ShoppingBag, Users, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
 import Header from "../components/common/Header";
@@ -6,6 +6,7 @@ import StatCard from "../components/common/StatCard";
 import SalesOverviewChart from "../components/overview/SalesOverviewChart";
 import CategoryDistributionChart from "../components/overview/CategoryDistributionChart";
 import SalesChannelChart from "../components/overview/SalesChannelChart";
+import AnalyticsPage from "./AnalyticsPage";
 
 const OverviewPage = () => {
 	return (
