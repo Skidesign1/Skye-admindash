@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./components/common/Dashboard";
 import AnalyticsPage from "./pages/AnalyticsPage";
@@ -14,13 +14,14 @@ const isAuthenticated =localStorage.getItem("auth") === "true";
 function App() {
 	return( 
 	
-		<div className='flex h-screen bg-gray-900 text-gray-100 overflow-hidden'>
+		<div className='flex h-screen bg-white text-black overflow-hidden'>
 			<Routes>
+				<Route path="/" element={<Navigate to="/login" />} />
 				<Route path="/login" element={<LoginPage />} />
 				<Route
 				path="/dashboard"
 				element={
-					<div className="flex">
+					<div className="flex w-full h-full bg-black text-white">
 					<Sidebar />
 					<Dashboard />	
 					</div>
@@ -29,7 +30,7 @@ function App() {
 				<Route
 				path="/analytics"
 				element={
-					<div className="flex">
+					<div className="flex w-full h-full bg-black text-white ">
                   <Sidebar />
 				  <AnalyticsPage />
 					</div>
@@ -38,7 +39,7 @@ function App() {
 				<Route
 				path="/products"
 				element={
-					<div className="flex">
+					<div className="flex w-full h-full bg-black text-white">
                   <Sidebar />
 				  <ProductsPage />
 					</div>
@@ -47,7 +48,7 @@ function App() {
 				<Route
 				path="/users"
 				element={
-					<div className="flex">
+					<div className="flex w-full h-full bg-black text-white">
                   <Sidebar />
 				  <UsersPage />
 					</div>
@@ -56,7 +57,7 @@ function App() {
 				<Route
 				path="/orders"
 				element={
-					<div className="flex">
+					<div className="flex w-full h-full bg-black text-white">
                   <Sidebar />
 				  <OrdersPage />
 					</div>
@@ -65,7 +66,7 @@ function App() {
 				<Route
 				path="/settings"
 				element={
-					<div className="flex">
+					<div className="flex w-full h-full bg-black text-white">
                   <Sidebar />
 				  <SettingsPage />
 					</div>

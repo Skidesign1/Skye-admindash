@@ -19,3 +19,13 @@
         padding: 20px;
     }
 }
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+}
