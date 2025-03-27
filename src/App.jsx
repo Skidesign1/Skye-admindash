@@ -8,6 +8,7 @@ import UsersPage from "./pages/UsersPage";
 import OrdersPage from "./pages/OrdersPage";
 import SettingsPage from "./pages/SettingsPage";
 import Sidebar from "./components/common/Sidebar";
+// import ProtectedRoute from "./components/ProtectedRoute";
 
 const isAuthenticated =localStorage.getItem("auth") === "true";
 
@@ -22,8 +23,10 @@ function App() {
 				path="/dashboard"
 				element={
 					<div className="flex w-full h-full bg-black text-white">
-					<Sidebar />
-					<Dashboard />	
+						{/* <ProtectedRoute> */}
+							<Sidebar />
+							<Dashboard />
+						{/* </ProtectedRoute> */}
 					</div>
 				}
 				/>

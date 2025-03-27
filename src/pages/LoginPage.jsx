@@ -11,10 +11,10 @@ const navigate =useNavigate();
         <div className="flex items-center justify-center h-screen w-full px-4 sm:px-6 lg:px-8 bg-black-100">
         <div className="flex justify-center items-center h-screen w-full bg-black-100">
             <div className="bg-black p-6 rounded-lg shadow-md w-full max-w-md">
-                <h2 className="text-2x1 font-bold mb-6 text-center">Login</h2>
+                <h2 className="text-2x1 font-bold mb-6 text-white text-center">Admin Login</h2>
                 <form onSubmit={handleLogin}>
                     <div className="mb-4">
-                        <label className="block text-grey-700">Email</label>
+                        <label className="block text-white">Email</label>
                         <input
                         type="email"
                         className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 bg-black text-white placeholder-gray-400"
@@ -43,7 +43,7 @@ const navigate =useNavigate();
                         type="submit"
                         className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
                         
->                        Login
+                        >Login
                         </button>
                 </form>
             </div>
