@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Header from "../components/common/Header";
 import StatCard from "../components/common/StatCard";
 import UsersTable from "../components/users/UsersTable";
+import Navbar from "../components/users/Navbar";
+import React, { useState } from "react";
 import UserGrowthChart from "../components/users/UserGrowthChart";
 import UserActivityHeatmap from "../components/users/UserActivityHeatmap";
 import UserDemographicsChart from "../components/users/UserDemographicsChart";
@@ -16,9 +18,13 @@ const userStats = {
 };
 
 const UsersPage = () => {
+	const [show, setShow] = useState(false);
+		const handleShow = () => setShow(true);
+		const handleClose = () => setShow(false);
 	return (
 		<div className='flex-1 overflow-auto relative z-10'>
 			<Header title='Users' />
+			<Navbar onAddCreative={handleShow} />
 
 			<main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
 				{/* STATS */}
