@@ -27,15 +27,19 @@ const PartnerBlockToggle = ({ partnerId, isBlockedInitially = false }) => {
     };
 
     return (
-        <div className="flex items-center">
-            <h3 style={{ fontSize: "14px" }}>Block</h3>
-            <input 
-                type="checkbox" 
-                checked={isBlocked} 
-                onChange={handleToggleBlock} 
-                className="ml-2"
-            />
+        <div style={{fontSize: '14px'}} className="">
+            <button
+                onClick={handleToggleBlock}
+                className={`px-2 py-1 rounded font-semibold transition-all ${
+                isBlocked
+                    ? " text-green-100 hover:bg-green-700"
+                    : " text-red-100 hover:bg-red-700"
+                }`}
+            >
+                {isBlocked ? "Unblock" : "Block"}
+            </button>
         </div>
+
     );
 };
 

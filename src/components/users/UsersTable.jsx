@@ -1,26 +1,77 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
-
-const userData = [
-	{ id: 1, name: "John Doe", email: "john@example.com", role: "Customer", status: "Active" },
-	{ id: 2, name: "Jane Smith", email: "jane@example.com", role: "Admin", status: "Active" },
-	{ id: 3, name: "Bob Johnson", email: "bob@example.com", role: "Customer", status: "Inactive" },
-	{ id: 4, name: "Alice Brown", email: "alice@example.com", role: "Customer", status: "Active" },
-	{ id: 5, name: "Charlie Wilson", email: "charlie@example.com", role: "Moderator", status: "Active" },
-];
+import PartnerBlockToggle from "../PartnerBlockToggle";
+import { useNavigate } from "react-router-dom";
 
 const UsersTable = () => {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [filteredUsers, setFilteredUsers] = useState(userData);
+	const [partners, setPartners] = useState([]);
+	const [filteredPartners, setFilteredPartners] = useState([]);
+	const navigate = useNavigate();
+
+	const deletePartner = async (partnerId, e) => {
+		if (e) e.preventDefault();
+		console.log(partnerId);
+
+		try {
+			const response = await fetch(`http://localhost:5000/api/admin/delete-partner/${partnerId}`, {
+				method: "DELETE",
+			});
+			const data = await response.json();
+			console.log(data);
+
+			setPartners((prevPartnerList) =>
+				prevPartnerList.filter((part) => part._id !== partnerId)
+			);
+			setFilteredPartners((prevFilteredList) =>
+				prevFilteredList.filter((part) => part._id !== partnerId)
+			);
+		} catch (error) {
+			console.log("error", error.message);
+		}
+	};
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch("http://localhost:5000/api/admin/partners", {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				});
+
+				const partnersData = await response.json();
+				setPartners(partnersData);
+				setFilteredPartners(partnersData); 
+				console.log(partnersData);
+			} catch (error) {
+				console.error("Error fetching data:", error.message);
+			}
+		};
+
+		fetchData();
+		const interval = setInterval(fetchData, 10000);
+
+		return () => clearInterval(interval);
+	}, []);
 
 	const handleSearch = (e) => {
 		const term = e.target.value.toLowerCase();
 		setSearchTerm(term);
-		const filtered = userData.filter(
-			(user) => user.name.toLowerCase().includes(term) || user.email.toLowerCase().includes(term)
+		const filtered = partners.filter(
+			(user) =>
+				user.name.toLowerCase().includes(term) ||
+				user.email.toLowerCase().includes(term)
 		);
-		setFilteredUsers(filtered);
+		setFilteredPartners(filtered);
+	};
+
+	const handleRowClick = (e, id) => {
+		// Prevent navigation if the click originated from a button
+		if (e.target.closest("button") || e.target.closest("input")) return;
+		navigate(`/partners/${id}`);
 	};
 
 	return (
@@ -55,10 +106,10 @@ const UsersTable = () => {
 								Email
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
-								Role
+								Created On
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
-								Status
+								Country
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
 								Actions
@@ -67,50 +118,58 @@ const UsersTable = () => {
 					</thead>
 
 					<tbody className='divide-y divide-gray-700'>
-						{filteredUsers.map((user) => (
+						{filteredPartners.map((partner) => (
 							<motion.tr
-								key={user.id}
+								key={partner._id}
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								transition={{ duration: 0.3 }}
+								onClick={(e) => handleRowClick(e, partner._id)}
 							>
 								<td className='px-6 py-4 whitespace-nowrap'>
 									<div className='flex items-center'>
 										<div className='flex-shrink-0 h-10 w-10'>
 											<div className='h-10 w-10 rounded-full bg-gradient-to-r from-purple-400 to-blue-500 flex items-center justify-center text-white font-semibold'>
-												{user.name.charAt(0)}
+												{partner.name.charAt(0)}
 											</div>
 										</div>
 										<div className='ml-4'>
-											<div className='text-sm font-medium text-gray-100'>{user.name}</div>
+											<div className='text-sm font-medium text-gray-100'>{partner.name}</div>
 										</div>
 									</div>
 								</td>
 
 								<td className='px-6 py-4 whitespace-nowrap'>
-									<div className='text-sm text-gray-300'>{user.email}</div>
+									<div className='text-sm text-gray-300'>{partner.email}</div>
 								</td>
+
 								<td className='px-6 py-4 whitespace-nowrap'>
 									<span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-800 text-blue-100'>
-										{user.role}
+										{new Date(partner.createdAt).toLocaleDateString("en-US", {
+											year: "numeric",
+											month: "short",
+											day: "numeric",
+										})}
 									</span>
 								</td>
 
 								<td className='px-6 py-4 whitespace-nowrap'>
-									<span
-										className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-											user.status === "Active"
-												? "bg-green-800 text-green-100"
-												: "bg-red-800 text-red-100"
-										}`}
-									>
-										{user.status}
+									<span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full'>
+										Nigeria
 									</span>
 								</td>
 
-								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-									<button className='text-indigo-400 hover:text-indigo-300 mr-2'>Edit</button>
-									<button className='text-red-400 hover:text-red-300'>Delete</button>
+								<td className='px-6 py-4 flex gap-2 items-center whitespace-nowrap text-sm text-gray-300'>
+									<PartnerBlockToggle
+										partnerId={partner._id}
+										isBlockedInitially={partner.isBlocked}
+									/>
+									<button
+										onClick={(e) => deletePartner(partner._id, e)}
+										className='text-red-400 hover:text-red-300'
+									>
+										Delete
+									</button>
 								</td>
 							</motion.tr>
 						))}
@@ -120,4 +179,5 @@ const UsersTable = () => {
 		</motion.div>
 	);
 };
+
 export default UsersTable;

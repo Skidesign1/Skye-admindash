@@ -8,6 +8,8 @@ import UsersPage from "./pages/UsersPage";
 import OrdersPage from "./pages/OrdersPage";
 import SettingsPage from "./pages/SettingsPage";
 import Sidebar from "./components/common/Sidebar";
+import PartnerDetails from "./pages/PartnerDetails";
+import CreativeDetails from "./pages/CreativeDetails";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 const isAuthenticated =localStorage.getItem("auth") === "true";
@@ -75,8 +77,11 @@ function App() {
 					</div>
 					}
 				/>
-               </Routes>
-			</div>
+  				<Route path="/partners/:partnerId" element={<PartnerDetails />} />
+  				<Route path="/creatives/:creativeId" element={<CreativeDetails />} />
+			</Routes>
+
+		</div>
 		
 	);
 };
