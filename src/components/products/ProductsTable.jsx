@@ -42,8 +42,8 @@ const ProductsTable = () => {
 
 	useEffect(() => {
 		const filtered = creatives.filter((c) =>
-			c.creativeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			c.creativeEmail.toLowerCase().includes(searchTerm.toLowerCase())
+			c.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			c.email.toLowerCase().includes(searchTerm.toLowerCase())
 		);
 		setFilteredCreatives(filtered);
 	}, [searchTerm, creatives]);
@@ -86,48 +86,56 @@ const ProductsTable = () => {
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>Actions</th>
 						</tr>
 					</thead>
-					<tbody className='divide-y divide-gray-700'>
-						{filteredCreatives.map((creative) => (
-							<motion.tr
-								key={creative._id}
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ duration: 0.3 }}
-								onClick={(e) => handleRowClick(e, creative._id)}
+				<tbody className='divide-y divide-gray-700'>
+					{filteredCreatives.length === 0 ? (
+						<tr>
+						<td colSpan="5" className="text-center py-6 text-gray-400">
+							No creatives found.
+						</td>
+						</tr>
+					) : (
+						filteredCreatives.map((creative) => (
+						<motion.tr
+							key={creative._id}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 0.3 }}
+							onClick={(e) => handleRowClick(e, creative._id)}
+						>
+							<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-100 flex gap-2 items-center'>
+							<img
+								src='https://images.unsplash.com/photo-1627989580309-bfaf3e58af6f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d2lyZWxlc3MlMjBlYXJidWRzfGVufDB8fDB8fHww'
+								alt='Creative'
+								className='size-10 rounded-full'
+							/>
+							{creative.fullName}
+							</td>
+							<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>{creative.email}</td>
+							<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
+							{new Date(creative.createdAt).toLocaleDateString("en-US", {
+								year: "numeric",
+								month: "short",
+								day: "numeric",
+							})}
+							</td>
+							<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>Templates</td>
+							<td className='px-6 py-4 flex whitespace-nowrap text-sm text-gray-300 gap-2'>
+							<CreativeBlockToggle
+								creativeId={creative._id}
+								isBlockedInitially={creative.isBlocked}
+							/>
+							<button
+								onClick={() => deleteCreative(creative._id)}
+								className='text-red-400 hover:text-red-300'
 							>
-								<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-100 flex gap-2 items-center'>
-									<img
-										src='https://images.unsplash.com/photo-1627989580309-bfaf3e58af6f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d2lyZWxlc3MlMjBlYXJidWRzfGVufDB8fDB8fHww'
-										alt='Creative'
-										className='size-10 rounded-full'
-									/>
-									{creative.creativeName}
-								</td>
-								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-									{creative.creativeEmail}
-								</td>
-								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-									{new Date(creative.createdAt).toLocaleDateString("en-US", {
-										year: "numeric",
-										month: "short",
-										day: "numeric",
-									})}
-								</td>
-								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-									Templates
-								</td>
-								<td className='px-6 py-4 flex whitespace-nowrap text-sm text-gray-300 gap-2'>
-									<CreativeBlockToggle
-										creativeId={creative._id}
-										isBlockedInitially={creative.isBlocked}
-									/>
-									<button onClick={() => deleteCreative(creative._id)} className='text-red-400 hover:text-red-300'>
-										<Trash2 size={18} />
-									</button>
-								</td>
-							</motion.tr>
-						))}
-					</tbody>
+								<Trash2 size={18} />
+							</button>
+							</td>
+						</motion.tr>
+						))
+					)}
+				</tbody>
+
 				</table>
 			</div>
 		</motion.div>

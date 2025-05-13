@@ -25,8 +25,9 @@ const CreativeDetails = () => {
 
   return (
     <div className="p-6 w-[50%] mx-auto space-y-4 rounded-lg bg-[#56778] border text-black">
-      <h2 className="text-xl font-bold mb-2">{creative.creativeName.toUpperCase()}'s Profile</h2>
-      <p>Email: {creative.creativeEmail}</p>
+      <h2 className="text-xl font-bold mb-2">{creative.fullName.toUpperCase()}'s Profile</h2>
+      <p>Email: {creative.email}</p>
+      <p>Country: {creative.country}</p>
       <p>Created: {new Date(creative.createdAt).toLocaleDateString()}</p>
 
     </div>

@@ -14,30 +14,25 @@ const ProductsPage = () => {
 	const [isOpen, setIsOpen] = useState(false);
     // const [name, setName] = useState('');
     // const [email, setEmail] = useState('');
-    // const [clients, setClients] = useState([]);
-    const [creativeName, setCreativeName] = useState('');
-    const [creativeEmail, setCreativeEmail] = useState('');
-    const [skills, setSkills] = useState('');
-    // const [password, setPassword] = useState('');
-    // const [capabilities, setCapabilities] = useState('');
+    const [country, setCountry] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
 	const handleCreateCreative = async (e) => {
         e.preventDefault();
     
-        // Convert skills string into an array
-        const skillsArray = skills.split(",").map(skill => skill.trim());
-    
         console.log("Submitting:", { 
-            creativeName, 
-            creativeEmail, 
-            skills: skillsArray // Log this to confirm it's an array
+            fullName, 
+            email, 
+            country // Log this to confirm it's an array
         });
     
         try {
             const response = await fetch('http://localhost:5000/api/admin/create-creative', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ creativeName, creativeEmail, skills: skillsArray }), // Send as array
+                body: JSON.stringify({ fullName, email, country, password }), // Send as array
             });
     
             const data = await response.json();
@@ -78,14 +73,14 @@ const ProductsPage = () => {
 
 				<form onSubmit={handleCreateCreative} className="flex flex-col text-left space-y-3 text-sm">
 					<div>
-					<label className="block mb-1">Name</label>
+					<label className="block mb-1">Full Name</label>
 					<input
-						name="creativeName"
+						name="fullName"
 						type="text"
 						placeholder="Name"
 						className="w-full px-3 py-2 text-black rounded"
-						value={creativeName}
-						onChange={(e) => setCreativeName(e.target.value)}
+						value={fullName}
+						onChange={(e) => setFullName(e.target.value)}
 						required
 					/>
 					</div>
@@ -93,25 +88,36 @@ const ProductsPage = () => {
 					<div>
 					<label className="block mb-1">Email</label>
 					<input
-						name="creativeEmail"
+						name="email"
 						type="email"
 						placeholder="Email"
 						className="w-full px-3 py-2 text-black rounded"
-						value={creativeEmail}
-						onChange={(e) => setCreativeEmail(e.target.value)}
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
 						required
 					/>
 					</div>
 
 					<div>
-					<label className="block mb-1">Skills</label>
-					<input
-						name="skills"
-						type="text"
-						placeholder="Skills (comma-separated)"
-						className="w-full px-3 py-2 text-black rounded"
-						onChange={(e) => setSkills(e.target.value)}
-					/>
+						<label className="block mb-1">Country</label>
+						<input
+							name="country"
+							type="text"
+							placeholder="country"
+							className="w-full px-3 py-2 text-black rounded"
+							onChange={(e) => setCountry(e.target.value)}
+						/>
+					</div>
+
+					<div>
+						<label className="block mb-1">Password</label>
+						<input
+							name="password"
+							type="password"
+							placeholder="password"
+							className="w-full px-3 py-2 text-black rounded"
+							onChange={(e) => setPassword(e.target.value)}
+						/>
 					</div>
 
 					<button
