@@ -19,8 +19,8 @@ const Sidebar = () => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
 	const handleLogout = () => {
-		localStorage.removeItem("userToken");
-			navigate("/login", {replace: true});
+		localStorage.removeItem("adminToken");
+		navigate("/login", {replace: true});
 		
 	};
 	
@@ -64,6 +64,7 @@ const Sidebar = () => {
 							</motion.div>
 						</Link>
 					))}
+					<motion.span onClick={handleLogout}>Logout</motion.span>
 				</nav>
 			</div>
 		</motion.div>

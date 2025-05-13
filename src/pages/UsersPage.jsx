@@ -1,6 +1,7 @@
 import { UserCheck, UserPlus, UsersIcon, UserX } from "lucide-react";
 import { motion } from "framer-motion";
 import {useState} from "react"
+import { FiX } from "react-icons/fi";
 
 import Header from "../components/common/Header";
 import StatCard from "../components/common/StatCard";
@@ -64,47 +65,74 @@ const UsersPage = () => {
 			</div>
 
 			{isOpen && (
-				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-					<div className="bg-[#1E1E1E] rounded-lg shadow-lg max-w-sm w-full p-6">
-						<div className="flex justify-end gap-2">
-							<button
-								onClick={() => setIsOpen(false)}
-								className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
-							>
-								Close
-							</button>
-			
-						</div>
-						<form onSubmit={handleCreatePartner}>
-							<h1 style={{fontSize: '17px'}}>Create Partner</h1>
-							<div className='flex flex-col text-left text-white'>
-								<>
-									<p style={{fontSize: '14px'}}>Name</p>
-									<input style={{fontSize: '14px', color: 'black'}} name="name" type="text" placeholder="name" onChange={(e)=>setName(e.target.value)}/>
-
-								</>
-								<>
-									<p style={{fontSize: '14px'}}>Email</p>
-									<input style={{fontSize: '14px', color: 'black'}} name="email" type="text" placeholder="email" onChange={(e)=>setEmail(e.target.value)}/>
-
-								</>
-								<>
-									<p style={{fontSize: '14px'}}>Capabilities</p>
-									<input style={{fontSize: '14px', color: 'black'}} name="capabilities" type="text" placeholder="capabilities" onChange={(e)=>setCapabilities(e.target.value)}/>
-
-								</>
-								<>
-									<p style={{fontSize: '14px'}}>Password</p>
-									<input style={{fontSize: '14px', color: 'black'}} name="password" placeholder="password" onChange={(e)=>setPassword(e.target.value)}/>
-
-								</>
-								<><button style={{fontSize: '14px'}} className='bg-white mt-4 text-black' type='submit'>Create</button></> 
-							</div>
-						</form>
-						
-					</div>
+			<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+				<div className="bg-gray-900 rounded-lg shadow-lg w-full max-w-md p-6 text-white">
+				<div className="flex justify-between items-center mb-4">
+					<h2 className="text-lg font-semibold">Create Partner</h2>
+					<button
+					onClick={() => setIsOpen(false)}
+					className="text-sm bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded"
+					>
+					<FiX size={20} />
+					</button>
 				</div>
+
+				<form onSubmit={handleCreatePartner} className="space-y-4">
+					<div>
+					<label className="block text-sm">Name</label>
+					<input
+						type="text"
+						name="name"
+						placeholder="Name"
+						className="w-full px-3 py-2 rounded text-black text-sm"
+						onChange={(e) => setName(e.target.value)}
+					/>
+					</div>
+
+					<div>
+					<label className="block text-sm">Email</label>
+					<input
+						type="email"
+						name="email"
+						placeholder="Email"
+						className="w-full px-3 py-2 rounded text-black text-sm"
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+					</div>
+
+					<div>
+					<label className="block text-sm">Capabilities</label>
+					<input
+						type="text"
+						name="capabilities"
+						placeholder="Capabilities"
+						className="w-full px-3 py-2 rounded text-black text-sm"
+						onChange={(e) => setCapabilities(e.target.value)}
+					/>
+					</div>
+
+					<div>
+					<label className="block text-sm">Password</label>
+					<input
+						type="password"
+						name="password"
+						placeholder="Password"
+						className="w-full px-3 py-2 rounded text-black text-sm"
+						onChange={(e) => setPassword(e.target.value)}
+					/>
+					</div>
+
+					<button
+					type="submit"
+					className="w-full bg-white text-black font-medium py-2 rounded hover:bg-gray-200 text-sm"
+					>
+					Create
+					</button>
+				</form>
+				</div>
+			</div>
 			)}
+
 
 			<main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
 				{/* STATS */}

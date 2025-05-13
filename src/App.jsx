@@ -10,80 +10,107 @@ import SettingsPage from "./pages/SettingsPage";
 import Sidebar from "./components/common/Sidebar";
 import PartnerDetails from "./pages/PartnerDetails";
 import CreativeDetails from "./pages/CreativeDetails";
-// import ProtectedRoute from "./components/ProtectedRoute";
-
-const isAuthenticated =localStorage.getItem("auth") === "true";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 function App() {
-	return( 
-	
-		<div className='flex h-screen bg-white text-black overflow-hidden'>
-			<Routes>
-				<Route path="/" element={<Navigate to="/login" />} />
-				<Route path="/login" element={<LoginPage />} />
-				<Route
-				path="/dashboard"
-				element={
-					<div className="flex w-full h-full bg-black text-white">
-						{/* <ProtectedRoute> */}
-							<Sidebar />
-							<Dashboard />
-						{/* </ProtectedRoute> */}
-					</div>
-				}
-				/>
-				<Route
-				path="/analytics"
-				element={
-					<div className="flex w-full h-full bg-black text-white ">
-                  <Sidebar />
-				  <AnalyticsPage />
-					</div>
-					}
-				/>
-				<Route
-				path="/products"
-				element={
-					<div className="flex w-full h-full bg-black text-white">
-                  <Sidebar />
-				  <ProductsPage />
-					</div>
-					}
-				/>
-				<Route
-				path="/users"
-				element={
-					<div className="flex w-full h-full bg-black text-white">
-                  <Sidebar />
-				  <UsersPage />
-					</div>
-					}
-				/>
-				<Route
-				path="/orders"
-				element={
-					<div className="flex w-full h-full bg-black text-white">
-                  <Sidebar />
-				  <OrdersPage />
-					</div>
-					}
-				/>
-				<Route
-				path="/settings"
-				element={
-					<div className="flex w-full h-full bg-black text-white">
-                  <Sidebar />
-				  <SettingsPage />
-					</div>
-					}
-				/>
-  				<Route path="/partners/:partnerId" element={<PartnerDetails />} />
-  				<Route path="/creatives/:creativeId" element={<CreativeDetails />} />
-			</Routes>
+	return (
+		<div className="flex h-screen bg-white text-black overflow-hidden">
+		<Routes>
+			<Route path="/" element={<Navigate to="/login" />} />
+			<Route path="/login" element={<LoginPage />} />
 
+			<Route
+			path="/dashboard"
+			element={
+				<ProtectedRoute>
+				<div className="flex w-full h-full bg-black text-white">
+					<Sidebar />
+					<Dashboard />
+				</div>
+				</ProtectedRoute>
+			}
+			/>
+
+			<Route
+			path="/analytics"
+			element={
+				<ProtectedRoute>
+				<div className="flex w-full h-full bg-black text-white">
+					<Sidebar />
+					<AnalyticsPage />
+				</div>
+				</ProtectedRoute>
+			}
+			/>
+
+			<Route
+			path="/products"
+			element={
+				<ProtectedRoute>
+				<div className="flex w-full h-full bg-black text-white">
+					<Sidebar />
+					<ProductsPage />
+				</div>
+				</ProtectedRoute>
+			}
+			/>
+
+			<Route
+			path="/users"
+			element={
+				<ProtectedRoute>
+				<div className="flex w-full h-full bg-black text-white">
+					<Sidebar />
+					<UsersPage />
+				</div>
+				</ProtectedRoute>
+			}
+			/>
+
+			<Route
+			path="/orders"
+			element={
+				<ProtectedRoute>
+				<div className="flex w-full h-full bg-black text-white">
+					<Sidebar />
+					<OrdersPage />
+				</div>
+				</ProtectedRoute>
+			}
+			/>
+
+			<Route
+			path="/settings"
+			element={
+				<ProtectedRoute>
+				<div className="flex w-full h-full bg-black text-white">
+					<Sidebar />
+					<SettingsPage />
+				</div>
+				</ProtectedRoute>
+			}
+			/>
+
+			<Route
+			path="/partners/:partnerId"
+			element={
+				<ProtectedRoute>
+				<PartnerDetails />
+				</ProtectedRoute>
+			}
+			/>
+
+			<Route
+			path="/creatives/:creativeId"
+			element={
+				<ProtectedRoute>
+				<CreativeDetails />
+				</ProtectedRoute>
+			}
+			/>
+		</Routes>
 		</div>
-		
 	);
-};
+}
 
 export default App;

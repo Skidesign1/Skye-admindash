@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import {useState} from "react"
 import Header from "../components/common/Header";
 import StatCard from "../components/common/StatCard";
+import { FiX } from "react-icons/fi";
+
 
 import { AlertTriangle, DollarSign, Package, TrendingUp } from "lucide-react";
 import CategoryDistributionChart from "../components/overview/CategoryDistributionChart";
@@ -62,63 +64,65 @@ const ProductsPage = () => {
 			</div>
 
 			{isOpen && (
-				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-					<div className="bg-[#1E1E1E] rounded-lg shadow-lg max-w-sm w-full p-6">
-						<div className="flex justify-end gap-2">
-							<button
-								onClick={() => setIsOpen(false)}
-								className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
-							>
-								Close
-							</button>
-			
-						</div>
-						<form onSubmit={handleCreateCreative} className='flex flex-col text-white text-left'>
-
-							<h1 style={{fontSize: '17px'}}>Create Creative</h1>
-
-							<label style={{ fontSize: '14px' }}>Name</label>
-							<input
-								style={{ fontSize: '14px', color: 'black' }}
-								name="creativeName"
-								type="text"
-								placeholder="Name"
-								value={creativeName} // Bind input to state
-								onChange={(e) => setCreativeName(e.target.value)}
-								required
-							/>
-
-							<label style={{ fontSize: '14px' }}>Email</label>
-							<input
-								style={{ fontSize: '14px', color: 'black' }}
-								name="creativeEmail"
-								type="email"
-								placeholder="Email"
-								value={creativeEmail}
-								onChange={(e) => setCreativeEmail(e.target.value)}
-								required
-							/>
-
-							<label style={{ fontSize: '14px' }}>Skills</label>
-							<input 
-								style={{fontSize: '14px', color: 'black'}} 
-								name="skills" 
-								type="text" 
-								placeholder="skills (comma-separated)" 
-								onChange={(e) => setSkills(e.target.value)}
-							/>
-
-							<button
-								style={{ fontSize: '14px' }}
-								className='bg-white mt-4 text-black'
-								type='submit'
-							>
-								Create
-							</button>
-						</form>
-						
-					</div>
+			<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+				<div className="bg-[#1E1E1E] rounded-lg shadow-lg max-w-sm w-full p-6 text-white">
+				<div className="flex justify-between items-center mb-4">
+					<h2 className="text-lg font-semibold">Create Creative</h2>
+					<button
+					onClick={() => setIsOpen(false)}
+					className="text-white hover:text-gray-400"
+					>
+					<FiX size={20} />
+					</button>
 				</div>
+
+				<form onSubmit={handleCreateCreative} className="flex flex-col text-left space-y-3 text-sm">
+					<div>
+					<label className="block mb-1">Name</label>
+					<input
+						name="creativeName"
+						type="text"
+						placeholder="Name"
+						className="w-full px-3 py-2 text-black rounded"
+						value={creativeName}
+						onChange={(e) => setCreativeName(e.target.value)}
+						required
+					/>
+					</div>
+
+					<div>
+					<label className="block mb-1">Email</label>
+					<input
+						name="creativeEmail"
+						type="email"
+						placeholder="Email"
+						className="w-full px-3 py-2 text-black rounded"
+						value={creativeEmail}
+						onChange={(e) => setCreativeEmail(e.target.value)}
+						required
+					/>
+					</div>
+
+					<div>
+					<label className="block mb-1">Skills</label>
+					<input
+						name="skills"
+						type="text"
+						placeholder="Skills (comma-separated)"
+						className="w-full px-3 py-2 text-black rounded"
+						onChange={(e) => setSkills(e.target.value)}
+					/>
+					</div>
+
+					<button
+					type="submit"
+					className="bg-white text-black py-2 rounded hover:bg-gray-200"
+					>
+					Create
+					</button>
+				</form>
+				</div>
+			</div>
 			)}
 
 			<main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
