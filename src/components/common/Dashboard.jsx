@@ -84,32 +84,32 @@ const Dashboard = () => {
     }
 
 
-    const handleCreateCreative = async (e) => {
-        e.preventDefault();
+    // const handleCreateCreative = async (e) => {
+    //     e.preventDefault();
     
-        // Convert skills string into an array
-        const skillsArray = skills.split(",").map(skill => skill.trim());
+    //     // Convert skills string into an array
+    //     const skillsArray = skills.split(",").map(skill => skill.trim());
     
-        console.log("Submitting:", { 
-            creativeName, 
-            creativeEmail, 
-            skills: skillsArray // Log this to confirm it's an array
-        });
+    //     console.log("Submitting:", { 
+    //         creativeName, 
+    //         creativeEmail, 
+    //         skills: skillsArray // Log this to confirm it's an array
+    //     });
     
-        try {
-            const response = await fetch('http://localhost:5000/api/admin/create-creative', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ creativeName, creativeEmail, skills: skillsArray }), // Send as array
-            });
+    //     try {
+    //         const response = await fetch('http://localhost:5000/api/admin/create-creative', {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify({ creativeName, creativeEmail, skills: skillsArray }), // Send as array
+    //         });
     
-            const data = await response.json();
-            console.log("New Creative Created:", data);
+    //         const data = await response.json();
+    //         console.log("New Creative Created:", data);
     
-        } catch (error) {
-            console.error("Error:", error.message);
-        }
-    };
+    //     } catch (error) {
+    //         console.error("Error:", error.message);
+    //     }
+    // };
     
 
 
@@ -175,20 +175,18 @@ const Dashboard = () => {
                                 <button style={{ fontSize: "14px" }} onClick={()=> deletePartner(partner._id)}>Delete</button>
                                 <h6 style={{fontSize: '14px'}}>Clients:</h6>
                                 {
-                                partner.clients.map((client) => (
-                                    <div key={client._id} className="client">
-                                        <p style={{fontSize: '14px'}}>Email: {client.clientName}</p>
-                                        <p style={{fontSize: '14px'}}>Phone: {client.businessName}</p>
-                                        <ClientBlockToggle 
-                                            clientId={client._id} 
-                                            isBlockedInitially={client.isBlocked} // ✅ Ensure this is passed correctly
-                                        />
-                                    </div>
-                                ))
+                                    partner.clients.map((client) => (
+                                        <div key={client._id} className="client">
+                                            <p style={{fontSize: '14px'}}>Email: {client.clientName}</p>
+                                            <p style={{fontSize: '14px'}}>Phone: {client.businessName}</p>
+                                            <ClientBlockToggle 
+                                                clientId={client._id} 
+                                                isBlockedInitially={client.isBlocked} // ✅ Ensure this is passed correctly
+                                            />
+                                        </div>
+                                    ))
                                 
-                                }
-
-                               
+                                }                            
                                
                             </div>
                         ))
@@ -223,71 +221,6 @@ const Dashboard = () => {
                     </div>
                 </form>
             </div>
-            <div>
-                <h1 className="text-3x1">
-                    <h3 style={{fontSize: '15px'}}>CREATIVES</h3>
-
-                    {
-                        creatives.map((creative, index) => (
-                            <div key={index} className="text-left border border-white">
-                            <h1 style={{ fontSize: "14px" }}>{creative.creativeName}</h1>  {/* Change from creativeName */}
-                            <h2 style={{ fontSize: "14px" }}>{creative.creativeEmail}</h2>  {/* Change from creativeEmail */}
-                            <p style={{ fontSize: "14px" }}>{creative.skills.join(", ")}</p>  
-                            <CreativeBlockToggle 
-                                creativeId={creative._id} 
-                                isBlockedInitially={creative.isBlocked} 
-                            />
-                            <button style={{ fontSize: "14px" }} onClick={()=> deleteCreative(creative._id)}>Delete</button>
-                            </div>
-                        ))
-                    }
-                    
-                </h1>
-                <form onSubmit={handleCreateCreative} className='flex flex-col text-white text-left'>
-
-                    <h1 style={{fontSize: '17px'}}>Create Creative</h1>
-
-                    <label style={{ fontSize: '14px' }}>Name</label>
-                    <input
-                        style={{ fontSize: '14px', color: 'black' }}
-                        name="creativeName"
-                        type="text"
-                        placeholder="Name"
-                        value={creativeName} // Bind input to state
-                        onChange={(e) => setCreativeName(e.target.value)}
-                        required
-                    />
-
-                    <label style={{ fontSize: '14px' }}>Email</label>
-                    <input
-                        style={{ fontSize: '14px', color: 'black' }}
-                        name="creativeEmail"
-                        type="email"
-                        placeholder="Email"
-                        value={creativeEmail}
-                        onChange={(e) => setCreativeEmail(e.target.value)}
-                        required
-                    />
-
-                    <label style={{ fontSize: '14px' }}>Skills</label>
-                    <input 
-                        style={{fontSize: '14px', color: 'black'}} 
-                        name="skills" 
-                        type="text" 
-                        placeholder="skills (comma-separated)" 
-                        onChange={(e) => setSkills(e.target.value)}
-                    />
-
-                    <button
-                        style={{ fontSize: '14px' }}
-                        className='bg-white mt-4 text-black'
-                        type='submit'
-                    >
-                        Create
-                    </button>
-                </form>
-            </div>
-
         </div>
     );
 };
